@@ -8,18 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
-    <title> MovieWish - @yield('title')</title>
+    <title>MovieWish - @yield('title')</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
 </head>
 <body>
     <div id="app">
@@ -37,19 +31,15 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        MovieWish
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                      <!-- <ul> -->
-
-
-                        <li><a href="{{route('movies.index')}}">All Movies</a></li>
-                        <li><a href="{{route('movies.create')}}">New Movies</a></li>
-                        <!-- </ul> -->
+                        <li><a href="{{ route('movies.index') }}">All Movies</a></li>
+                        <li><a href="{{ route('movies.create') }}">Add a Movie</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -83,10 +73,9 @@
                 </div>
             </div>
         </nav>
-<div class="container">
-  @yield('content')
-</div>
-
+        <div class="container">
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->

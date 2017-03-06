@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-
- public function __construct()
- {
-     $this->middleware('auth');
- }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +46,18 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'release_date' => 'required|date'
+        ]);
+
+        $movie = new Movie;
+        $movie->title = $request->title;
+        $movie->release_date = $request->release_date;
+
+        $movie->save();
+
+        return redirect()->route('movies.index')->with('status', 'Movie created!');
     }
 
     /**
@@ -53,7 +68,7 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        return view('movies.show', array('movie' => $movie));
+        return view('movies.show', ['movie' => $movie]);
     }
 
     /**
@@ -64,7 +79,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        return view('movies.edit');
+        return view('movies.edit', ['movie' => $movie]);
     }
 
     /**
@@ -76,7 +91,17 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'release_date' => 'required|date'
+        ]);
+
+        $movie->title = $request->title;
+        $movie->release_date = $request->release_date;
+
+        $movie->save();
+
+        return redirect()->route('movies.index')->with('status', 'Movie updated!');
     }
 
     /**
@@ -87,6 +112,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+
+        return redirect()->route('movies.index')->with('status', 'Movie deleted!');
     }
 }

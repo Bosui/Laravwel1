@@ -1,31 +1,34 @@
 @extends('layouts.app')
 
-@section ('content')
-<!-- "<h1>Hello World create</h1>" -->
-<h1>Add New Movie</h1>
+@section('title', 'Add a movie')
 
-
-  <form class="form-horizontal" method="post">
+@section('content')
+<h1 class="text-center">Add a new Movie</h1>
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<form class="form-horizontal" role="form" method="POST" action="{{ route('movies.store') }}">
+    {{ csrf_field() }}
     <div class="form-group">
-      <label class="col-xs-8" for="title">Enter Movie title:</label>
-      <div class="">
-        <div class="col-xs-8">
-        <input class="form-conntrol" type="id="title" type="text" name="title">
+        <label class="col-xs-4 control-label" for="title">Enter the movie title</label>
+        <div class="col-xs-4">
+            <input id="title" class="form-control" type="text" name="title">
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-8" for="title">Enter Release date</label>
-        <div class="">
-          <div class="col-xs-8">
-          <input class="form-conntrol" type="id="title" type="text" name="title">
-          </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-4 control-label" for="release_date">Enter the release date</label>
+        <div class="col-xs-4">
+            <input id="release_date" class="form-control" type="date" name="release_date">
         </div>
-
     </div>
     <div class="text-center">
-      <button class="btn btn-default" type="submit" name="button"></button>
-
+        <input type="submit" class="btn btn-default btn-lg" name="" value="Save">
     </div>
-  </div>
 </form>
 @endsection

@@ -3,7 +3,12 @@
 @section('title', 'Movies Index')
 
 @section('content')
-<h1>Movies list</h1>
+<h1 class="text-center">My Wishlist</h1>
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
 <table class="table">
     <thead>
         <tr>
@@ -16,7 +21,14 @@
         <tr>
             <td>{{ $movie->title }}</td>
             <td>{{ $movie->release_date }}</td>
-            <td><a class="btn btn-default" href="{{ route('movies.show', [$movie->id] )}}">View details</a></td>
+            <td><a class="btn btn-default" href="{{ route('movies.show', $movie->id) }}">View details</a>
+                <a class="btn btn-default" href="{{ route('movies.edit', $movie->id) }}">Edit movie</a>
+                <form class="delete-movie-form" action="{{ route('movies.destroy', $movie->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <input class="btn btn-default" type="submit" value="Delete movie">
+                </form>
+            </td>
         </tr>
         @endforeach
     </tbody>
